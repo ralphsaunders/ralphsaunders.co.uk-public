@@ -1,5 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>ralphsaunders.co.uk</title><link href="http://ralphsaunders.co.uk/" rel="alternate"></link><link href="http://ralphsaunders.co.uk/feeds/all-en.atom.xml" rel="self"></link><id>http://ralphsaunders.co.uk/</id><updated>2014-11-23T16:01:00+00:00</updated><entry><title>Automate sprites with css-sprite &amp; stylus</title><link href="http://ralphsaunders.co.uk/automatic-css-sprites.html" rel="alternate"></link><updated>2014-11-23T16:01:00+00:00</updated><author><name>Ralph Saunders</name></author><id>tag:ralphsaunders.co.uk,2014-11-23:automatic-css-sprites.html</id><summary type="html">&lt;p&gt;We all know about the benefits of using CSS sprites right? They've &lt;a href="http://alistapart.com/article/sprites"&gt;been around for ages&lt;/a&gt;, are generally seen as a good thing to do, and should be considered a standard practice.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>ralphsaunders.co.uk</title><link href="http://ralphsaunders.co.uk/" rel="alternate"></link><link href="http://ralphsaunders.co.uk/feeds/all-en.atom.xml" rel="self"></link><id>http://ralphsaunders.co.uk/</id><updated>2014-11-25T13:45:00+00:00</updated><entry><title>Make front-end unit tests easy with karma</title><link href="http://ralphsaunders.co.uk/karma-unit-testing.html" rel="alternate"></link><updated>2014-11-25T13:45:00+00:00</updated><author><name>Ralph Saunders</name></author><id>tag:ralphsaunders.co.uk,2014-11-25:karma-unit-testing.html</id><summary type="html">&lt;p&gt;Unit tests are good but can sometimes be a pain to work with. It doesn't have to
+be this way though! With a good workflow unit testing should actually help
+development rather than hinder it. With that in mind, front-end unit tests should:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Source their dependencies without manual mangement&lt;/li&gt;
+&lt;li&gt;Run when code changes&lt;/li&gt;
+&lt;li&gt;Run in real browsers&lt;/li&gt;
+&lt;li&gt;Be easy to interactively debug&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Introducing Karma&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://karma-runner.github.io/0.12/index.html"&gt;Karma test runner&lt;/a&gt; is a node
+package that manages the running of unit tests and solves the issues above.&lt;/p&gt;
+&lt;p&gt;Setup is pretty straight forward and for the most part self-explanatory. They do
+have a &lt;a href="http://karma-runner.github.io/0.12/config/configuration-file.html"&gt;page about it on their website
+though&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Below is a Karma configuration file, some things to note:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;I'm using Jasmine for my unit tests&lt;/li&gt;
+&lt;li&gt;I'm not loading my files using a pattern like &lt;code&gt;/Source/Scripts/**/**/*.js&lt;/code&gt;
+  because they need to be loaded in a specific order.&lt;/li&gt;
+&lt;li&gt;Karma is going to run unit tests in the browsers defined. These browsers must
+  be setup and ready to load web pages!&lt;/li&gt;
+&lt;li&gt;I've set singleRun to false. This means the tests will re-run in the browser
+  every time one of the files changes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;karma.local.conf.js:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// Karma configuration&lt;/span&gt;
+&lt;span class="c1"&gt;// Generated on Tue Oct 28 2014 17:03:28 GMT+0000 (GMT Standard Time)&lt;/span&gt;
+
+&lt;span class="nx"&gt;module&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;exports&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;config&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="nx"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;set&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// base path that will be used to resolve all patterns (eg. files, exclude)&lt;/span&gt;
+    &lt;span class="nx"&gt;basePath&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+
+
+    &lt;span class="c1"&gt;// frameworks to use&lt;/span&gt;
+    &lt;span class="c1"&gt;// available frameworks: https://npmjs.org/browse/keyword/karma-adapter&lt;/span&gt;
+    &lt;span class="nx"&gt;frameworks&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;jasmine&amp;#39;&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+
+
+    &lt;span class="c1"&gt;// list of files / patterns to load in the browser&lt;/span&gt;
+    &lt;span class="nx"&gt;files&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="cp"&gt;[&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;Source/Scripts/lib/bluebird-2.3.11.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;Source/Scripts/lib/lodash-2.4.1.compat.min.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;Source/Scripts/angular.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;Source/Scripts/angular-mocks.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;Source/Scripts/angular-animate.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;Source/Scripts/lib/angular-google-maps.min.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;Source/Scripts/lib/*.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;Source/Scripts/app/**/*.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;Source/Scripts/tests/**/*.js&amp;#39;&lt;/span&gt;
+    &lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+
+
+    &lt;span class="c1"&gt;// list of files to exclude&lt;/span&gt;
+    &lt;span class="nx"&gt;exclude&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="cp"&gt;[&lt;/span&gt;
+      &lt;span class="s1"&gt;&amp;#39;gulpfile.js&amp;#39;&lt;/span&gt;
+    &lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+
+
+    &lt;span class="c1"&gt;// preprocess matching files before serving them to the browser&lt;/span&gt;
+    &lt;span class="c1"&gt;// available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor&lt;/span&gt;
+    &lt;span class="nx"&gt;preprocessors&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt;
+
+
+    &lt;span class="c1"&gt;// test results reporter to use&lt;/span&gt;
+    &lt;span class="c1"&gt;// possible values: &amp;#39;dots&amp;#39;, &amp;#39;progress&amp;#39;&lt;/span&gt;
+    &lt;span class="c1"&gt;// available reporters: https://npmjs.org/browse/keyword/karma-reporter&lt;/span&gt;
+    &lt;span class="nx"&gt;reporters&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;progress&amp;#39;&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+
+
+    &lt;span class="c1"&gt;// web server port&lt;/span&gt;
+    &lt;span class="nx"&gt;port&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;9876&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+
+
+    &lt;span class="c1"&gt;// enable / disable colors in the output (reporters and logs)&lt;/span&gt;
+    &lt;span class="nx"&gt;colors&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+
+
+    &lt;span class="c1"&gt;// level of logging&lt;/span&gt;
+    &lt;span class="c1"&gt;// possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG&lt;/span&gt;
+    &lt;span class="nx"&gt;logLevel&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;LOG_INFO&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+
+
+    &lt;span class="c1"&gt;// enable / disable watching file and executing tests whenever any file changes&lt;/span&gt;
+    &lt;span class="nx"&gt;autoWatch&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+
+
+    &lt;span class="c1"&gt;// start these browsers&lt;/span&gt;
+    &lt;span class="c1"&gt;// available browser launchers: https://npmjs.org/browse/keyword/karma-launcher&lt;/span&gt;
+    &lt;span class="nx"&gt;browsers&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Firefox&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Chrome&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;IE&amp;#39;&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+
+
+    &lt;span class="c1"&gt;// Continuous Integration mode&lt;/span&gt;
+    &lt;span class="c1"&gt;// if true, Karma captures browsers, runs the tests and exits&lt;/span&gt;
+    &lt;span class="nx"&gt;singleRun&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;
+  &lt;span class="p"&gt;});&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Karma + Gulp&lt;/h2&gt;
+&lt;p&gt;Running Karma from the cli directly is a bit of a chore, especially when the
+arguments are probably going to be the same most of the time. Here's how I'm
+using it with gulp:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;gulp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;task&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;local-test&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;done&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;karma&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;start&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+        &lt;span class="nx"&gt;configFile&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;__dirname&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/karma.local.conf.js&amp;#39;&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="nx"&gt;done&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Compare that with the task the build environment runs on our project:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;gulp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;task&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;remote-test&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;done&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;karma&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;start&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+        &lt;span class="nx"&gt;configFile&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;__dirname&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/karma.conf.js&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="nx"&gt;singleRun&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="nx"&gt;reporters&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;teamcity&amp;#39;&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="nx"&gt;done&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I'm overwriting a few variables in the karma config as part of the remote gulp
+task. I only want the test to run once and we want karma to output using the
+&lt;a href="https://www.jetbrains.com/teamcity/"&gt;TeamCity&lt;/a&gt; reporter. TeamCity is the build
+environment, and this means the output is present in TeamCity's build log.&lt;/p&gt;</summary><category term="npm"></category><category term="fed-tooling"></category></entry><entry><title>Automate sprites with css-sprite &amp; stylus</title><link href="http://ralphsaunders.co.uk/automatic-css-sprites.html" rel="alternate"></link><updated>2014-11-23T16:01:00+00:00</updated><author><name>Ralph Saunders</name></author><id>tag:ralphsaunders.co.uk,2014-11-23:automatic-css-sprites.html</id><summary type="html">&lt;p&gt;We all know about the benefits of using CSS sprites right? They've &lt;a href="http://alistapart.com/article/sprites"&gt;been around for ages&lt;/a&gt;, are generally seen as a good thing to do, and should be considered a standard practice.&lt;/p&gt;
 &lt;p&gt;They're also a pain in the arse. CSS sprites are time consuming to create, harder to maintain, and you have to go through all that pain again to create retina assets.&lt;/p&gt;
 &lt;p&gt;This is a conversation you don't want to have when you're manually maintaining CSS sprites:&lt;/p&gt;
 &lt;blockquote&gt;
