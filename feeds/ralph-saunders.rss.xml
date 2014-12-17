@@ -71,12 +71,14 @@ obtaining something like a frosted glass effect.&lt;/p&gt;
     }
 
     .blurred {
+        -moz-filter: blur(20px);
         -webkit-filter: blur(20px);
         filter: blur(20px);
         z-index: -2;
     }
 
     .sharp {
+        -moz-clip-path: polygon(0 0, 0 100%, 40% 100%, 40% 0, 80% 0, 80% 100%, 100% 100%, 100% 0);
         -webkit-clip-path: polygon(0 0, 0 100%, 40% 100%, 40% 0, 80% 0, 80% 100%, 100% 100%, 100% 0);
         clip-path: polygon(0 0, 0 100%, 40% 100%, 40% 0, 80% 0, 80% 100%, 100% 100%, 100% 0);
     }
@@ -98,6 +100,8 @@ obtaining something like a frosted glass effect.&lt;/p&gt;
     }
 
     .sandbox.transform {
+        -moz-perspective: 1500px;
+        -moz-transform: scale(.5);
         -webkit-perspective: 1500px;
         -webkit-transform: scale(.5);
         perspective: 1500px;
@@ -106,14 +110,17 @@ obtaining something like a frosted glass effect.&lt;/p&gt;
     }
 
     .sandbox.transform .demo-video {
+        -moz-transform: rotateY(40deg);
         -webkit-transform: rotateY(40deg);
     }
 
     .sandbox.transform .sharp {
+        -moz-transform: rotateY(40deg) translate(10%, 10%);
         -webkit-transform: rotateY(40deg) translate(10%, 10%);
     }
 
     .sandbox.transform .blurred-position {
+        -moz-transform: rotateY(40deg) translate(30%, 30%);
         -webkit-transform: rotateY(40deg) translate(30%, 30%);
     }
 
@@ -222,7 +229,30 @@ element, so we can do things like add transparent backgrounds with &lt;code&gt;r
         clip-path: polygon(0 0, 0 100%, 40% 100%, 40% 0, 80% 0, 80% 100%, 100% 100%, 100% 0);
     }
 &lt;span class="nt"&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Ralph Saunders</dc:creator><pubDate>Wed, 17 Dec 2014 16:23:00 +0000</pubDate><guid>tag:ralphsaunders.co.uk,2014-12-17:frosted-glass-with-filter-blur.html</guid><category>CSS</category></item><item><title>Make front-end unit tests easy with karma</title><link>http://ralphsaunders.co.uk/karma-unit-testing.html</link><description>&lt;p&gt;Unit tests are good but can sometimes be a pain to work with. It doesn't have to
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;script type="text/javascript"&gt;
+    var videosLoaded = 0;
+
+    var videos = [].map.call(document.querySelectorAll('video'), function(video) {
+        video.pause();
+        video.currentTime = 0;
+        video.addEventListener('loadeddata', function() {
+            videoLoaded();
+        }, false)
+    })
+
+    function videoLoaded() {
+        videosLoaded ++;
+
+        if(videosLoaded === videos.length) {
+            [].map.call(document.querySelectorAll('video'), function(video) {
+                video.play();
+            })
+        }
+    }
+&lt;/script&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Ralph Saunders</dc:creator><pubDate>Wed, 17 Dec 2014 16:23:00 +0000</pubDate><guid>tag:ralphsaunders.co.uk,2014-12-17:frosted-glass-with-filter-blur.html</guid><category>CSS</category></item><item><title>Make front-end unit tests easy with karma</title><link>http://ralphsaunders.co.uk/karma-unit-testing.html</link><description>&lt;p&gt;Unit tests are good but can sometimes be a pain to work with. It doesn't have to
 be this way though! With a good workflow unit testing should actually help
 development rather than hinder it. With that in mind, front-end unit tests should:&lt;/p&gt;
 &lt;ul&gt;
