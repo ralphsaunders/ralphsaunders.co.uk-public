@@ -1,0 +1,302 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Frosted Glass With filter:blur()</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="./theme/css/build/compiled.css" />
+
+        <!-- Typekit -->
+        <script>
+            (function(d) {
+                var config = {
+                    kitId: 'umd0yin',
+                    scriptTimeout: 3000
+                },
+                h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='//use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+            })(document);
+        </script>
+
+    </head>
+    <body class="">
+
+        <noscript>
+            <div class="javascript-disabled">
+                <div class="wrapper">
+                    <h2>Hey, we noticed you have javascript disabled in your
+                        browser.</h2>
+                    <p>Enable javascript in your browser to fully experience this
+                    website. <a href="http://enable-javascript.com/"
+                        target="_blank">Here are some handy instructions!</a></p>
+                </div>
+            </div>
+        </noscript>
+
+<nav class="hero-navigation">
+    <div class="hero-nav-wrap">
+        <ul class="page-list">
+            <li class="logo-wrap index">
+            <a class="logo-link" href="." title="Take me home!"><img src="./theme/images/build/ralphsaunders-logo.png" alt="" /></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<article class="article cf">
+    <header>
+        <h1 class="title">Frosted Glass With filter:blur()</h1>
+
+        <div class="summary">
+            <h2>Getting Blurry with CSS</h2>
+        </div>
+    </header>
+
+    <p><code>filter: blur()</code> is an awesome part of the new-ish <a href="http://www.w3.org/TR/filter-effects/">filter effects module in the
+W3 CSS spec</a>. In short, the filter module
+allows you to apply filters &mdash; like grayscale, sepia, blur, and so on
+&mdash; to DOM elements. It's made its way into
+<a href="http://caniuse.com/#search=filter">-webkit-</a>, and will be in Firefox's next
+release!</p>
+<p>Really, there's no excuse for not playing with it. Infact, provided you fallback
+sensibly, why not use it in production?</p>
+<h2>Basic usage</h2>
+<p>Basic usage of <code>filter:blur()</code> is very straight forward:</p>
+<div class="highlight"><pre><span class="na">.my-element</span> <span class="err">{</span>
+    <span class="err">-</span><span class="nl">webkit-filter:</span> <span class="nf">blur</span><span class="p">(</span><span class="mi">5</span><span class="no">px</span><span class="p">)</span><span class="err">;</span>
+    <span class="nl">filter:</span> <span class="nf">blur</span><span class="p">(</span><span class="mi">5</span><span class="no">px</span><span class="p">)</span><span class="err">;</span>
+<span class="err">}</span>
+</pre></div>
+
+
+<p>Will blur the contents of <code>.my-elment</code>. Here's what it looks like:</p>
+<style type="text/css">
+    .blur-me {
+        -webkit-filter: blur(5px);
+        filter: blur(5px);
+    }
+</style>
+
+<p>Unblurred:</p>
+<blockquote>
+    Here's my amazing quote
+</blockquote>
+
+<p>Blurred:</p>
+<blockquote class="blur-me">
+    Here's my amazing quote
+</blockquote>
+
+<p>Note how the filter is applied to everything inside the element. Not only did it
+blur the DOM content, it also blurred content specified via CSS and also the
+properties themselves &mdash; like the <code>border-left</code> property.</p>
+<p>This is both amazing but also sort of a pain at the same time. It means you can
+apply it to images, videos, and even canvas elements! But we don't usually want
+to blur absolutely everything, so there's a bit of leg work involved in
+obtaining something like a frosted glass effect.</p>
+<h2>Frosted Glass with Video</h2>
+<style type="text/css">
+
+    .sandbox {
+        position:relative;
+        clear:both;
+        width: 100%;
+        padding-bottom: 56.25%;
+        margin-right: 0;
+        height: 0;
+        overflow:hidden;
+        margin-bottom:20px;
+    }
+
+    .sandbox video {
+        margin-right: 0;
+        float: none;
+        width: 100%;
+    }
+
+    .demo-video {
+        position:absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
+
+    .blurred {
+        -webkit-filter: blur(20px);
+        filter: blur(20px);
+        z-index: -2;
+    }
+
+    .sharp {
+        -webkit-clip-path: polygon(0 0, 0 100%, 40% 100%, 40% 0, 80% 0, 80% 100%, 100% 100%, 100% 0);
+        clip-path: polygon(0 0, 0 100%, 40% 100%, 40% 0, 80% 0, 80% 100%, 100% 100%, 100% 0);
+    }
+
+    .article .blurred-position {
+        position: absolute;
+        left: 40%;
+        width: 40%;
+        height:100%;
+        box-sizing: border-box;
+        padding:40px;
+    }
+
+    .article .blurred-position * {
+        margin: 0;
+        float: none;
+        width: 100%;
+        color: #fff;
+    }
+
+    .sandbox.transform {
+        -webkit-perspective: 1500px;
+        -webkit-transform: scale(.5);
+        perspective: 1500px;
+        transform: scale(.5);
+        overflow:visible;
+    }
+
+    .sandbox.transform .demo-video {
+        -webkit-transform: rotateY(40deg);
+    }
+
+    .sandbox.transform .sharp {
+        -webkit-transform: rotateY(40deg) translate(10%, 10%);
+    }
+
+    .sandbox.transform .blurred-position {
+        -webkit-transform: rotateY(40deg) translate(30%, 30%);
+    }
+
+
+</style>
+
+<div class="sandbox constrain">
+    <video class="demo-video blurred" loop autoplay>
+        <source src="./videos/frosted-glass-with-filter-blur/example.ogv" type="video/ogg" codecs="theora,vorbis">
+    </video>
+    <video class="demo-video sharp" loop autoplay>
+        <source src="./videos/frosted-glass-with-filter-blur/example.ogv" type="video/ogg" codecs="theora,vorbis">
+    </video>
+    <div class="blurred-position">
+        <h2>Bacon ipsum dolor amet</h2>
+
+        <p>Bacon ipsum dolor amet bacon tenderloin bresaola turducken meatball,
+        beef short ribs sirloin. Pork loin prosciutto ribeye, sirloin short ribs
+        hamburger pork chop tongue. Ham short loin corned beef meatball beef ribs.
+        Sirloin chicken jowl pig pork loin meatball, salami spare ribs.</p>
+    </div>
+
+</div>
+
+<p>Pretty impressive right? To think how long we've dreamed for this to be possible
+on images, only to find out we can do it on videos!</p>
+<p>It's a bit difficult to figure the above example works when you see it flat like
+that, so here it is transformed a bit&hellip;</p>
+<div class="sandbox transform">
+    <video class="demo-video blurred" loop autoplay>
+        <source src="./videos/frosted-glass-with-filter-blur/example.ogv" type="video/ogg" codecs="theora,vorbis">
+    </video>
+    <video class="demo-video sharp" loop autoplay>
+        <source src="./videos/frosted-glass-with-filter-blur/example.ogv" type="video/ogg" codecs="theora,vorbis">
+    </video>
+    <div class="blurred-position">
+        <h2>Bacon ipsum dolor amet</h2>
+
+        <p>Bacon ipsum dolor amet bacon tenderloin bresaola turducken meatball,
+        beef short ribs sirloin. Pork loin prosciutto ribeye, sirloin short ribs
+        hamburger pork chop tongue. Ham short loin corned beef meatball beef ribs.
+        Sirloin chicken jowl pig pork loin meatball, salami spare ribs.</p>
+    </div>
+
+</div>
+
+<p>We've got two <code>&lt;video&gt;</code> elements that are playing the same video, both
+positioned <code>absolute</code> with different a <code>z-index</code> each &mdash; so they sit ontop
+of one another.  I'm combining the <code>clip-path</code> property with a CSS shape defined
+with <code>polygon</code> to clip a hole in the sharp <code>video</code> so the blurred <code>video</code> shows
+through.</p>
+<p>There's also a <code>&lt;div&gt;</code> element that is sitting ontop of both of the videos that
+matches the position of the hole in the <code>clip-path</code>. This is just a standard
+element, so we can do things like add transparent backgrounds with <code>rgba()</code> for
+'tinted glass' effects.</p>
+<p>Here's some code for you to try:</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;container&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;video</span> <span class="na">class=</span><span class="s">&quot;demo-video blurred&quot;</span> <span class="err">loop</span> <span class="err">autoplay</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;source</span> <span class="na">src=</span><span class="s">&quot;path/to/video&quot;</span> <span class="na">type=</span><span class="s">&quot;video/ogg&quot;</span> <span class="na">codecs=</span><span class="s">&quot;theora,vorbis&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/video&gt;</span>
+    <span class="nt">&lt;video</span> <span class="na">class=</span><span class="s">&quot;demo-video sharp&quot;</span> <span class="err">loop</span> <span class="err">autoplay</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;source</span> <span class="na">src=</span><span class="s">&quot;path/to/video&quot;</span> <span class="na">type=</span><span class="s">&quot;video/ogg&quot;</span> <span class="na">codecs=</span><span class="s">&quot;theora,vorbis&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/video&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;blurred-position&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h2&gt;</span>Here&#39;s some text too<span class="nt">&lt;/h2&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;style</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
+    .container {
+        position: relative;
+        height: 0;
+        padding-bottom: 56.25%; /* (16:9 aspect ratio) */
+        width:100%;
+    }
+
+    .demo-video {
+        position:absolute;
+        top:0;
+        right:0;
+        bottom:0;
+        left:0;
+        z-index: -1;
+    }
+
+    .blurred {
+        z-index: -2;
+        -webkit-filter: blur(20px);
+        filter: blur(20px);
+    }
+
+    .blurred-position {
+        position: absolute;
+        left: 40%;
+        width: 40%;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 40px;
+        color: #fff;
+    }
+
+
+    /* Use percentages so it&#39;s responsive! */
+    .sharp {
+        -webkit-clip-path: polygon(0 0, 0 100%, 40% 100%, 40% 0, 80% 0, 80% 100%, 100% 100%, 100% 0);
+        clip-path: polygon(0 0, 0 100%, 40% 100%, 40% 0, 80% 0, 80% 100%, 100% 100%, 100% 0);
+    }
+<span class="nt">&lt;/style&gt;</span>
+</pre></div>
+</article>
+
+<div class="hero-footer">
+    <div class="hero-footer-wrap">
+        <p>This website has the <a href="http://twitter.com/leighdarlow">Leigh Darlow</a> seal of approval</p>
+        <p class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>.</p>
+    </div>
+</div>
+        <!-- Javascript -->
+        <script src="./theme/js/scripts.js"></script>
+
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-57038003-1', 'auto');
+          ga('send', 'pageview');
+
+        </script>
+
+    </body>
+</html>

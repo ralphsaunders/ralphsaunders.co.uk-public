@@ -1,5 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>ralphsaunders.co.uk</title><link href="http://ralphsaunders.co.uk/" rel="alternate"></link><link href="http://ralphsaunders.co.uk/feeds/all.atom.xml" rel="self"></link><id>http://ralphsaunders.co.uk/</id><updated>2014-11-25T13:45:00+00:00</updated><entry><title>Make front-end unit tests easy with karma</title><link href="http://ralphsaunders.co.uk/karma-unit-testing.html" rel="alternate"></link><updated>2014-11-25T13:45:00+00:00</updated><author><name>Ralph Saunders</name></author><id>tag:ralphsaunders.co.uk,2014-11-25:karma-unit-testing.html</id><summary type="html">&lt;p&gt;Unit tests are good but can sometimes be a pain to work with. It doesn't have to
+<feed xmlns="http://www.w3.org/2005/Atom"><title>ralphsaunders.co.uk</title><link href="http://ralphsaunders.co.uk/" rel="alternate"></link><link href="http://ralphsaunders.co.uk/feeds/all.atom.xml" rel="self"></link><id>http://ralphsaunders.co.uk/</id><updated>2014-12-17T16:23:00+00:00</updated><entry><title>Frosted Glass With filter:blur()</title><link href="http://ralphsaunders.co.uk/frosted-glass-with-filter-blur.html" rel="alternate"></link><updated>2014-12-17T16:23:00+00:00</updated><author><name>Ralph Saunders</name></author><id>tag:ralphsaunders.co.uk,2014-12-17:frosted-glass-with-filter-blur.html</id><summary type="html">&lt;p&gt;&lt;code&gt;filter: blur()&lt;/code&gt; is an awesome part of the new-ish &lt;a href="http://www.w3.org/TR/filter-effects/"&gt;filter effects module in the
+W3 CSS spec&lt;/a&gt;. In short, the filter module
+allows you to apply filters &amp;mdash; like grayscale, sepia, blur, and so on
+&amp;mdash; to DOM elements. It's made its way into
+&lt;a href="http://caniuse.com/#search=filter"&gt;-webkit-&lt;/a&gt;, and will be in Firefox's next
+release!&lt;/p&gt;
+&lt;p&gt;Really, there's no excuse for not playing with it. Infact, provided you fallback
+sensibly, why not use it in production?&lt;/p&gt;
+&lt;h2&gt;Basic usage&lt;/h2&gt;
+&lt;p&gt;Basic usage of &lt;code&gt;filter:blur()&lt;/code&gt; is very straight forward:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="na"&gt;.my-element&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+    &lt;span class="err"&gt;-&lt;/span&gt;&lt;span class="nl"&gt;webkit-filter:&lt;/span&gt; &lt;span class="nf"&gt;blur&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="no"&gt;px&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
+    &lt;span class="nl"&gt;filter:&lt;/span&gt; &lt;span class="nf"&gt;blur&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="no"&gt;px&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Will blur the contents of &lt;code&gt;.my-elment&lt;/code&gt;. Here's what it looks like:&lt;/p&gt;
+&lt;style type="text/css"&gt;
+    .blur-me {
+        -webkit-filter: blur(5px);
+        filter: blur(5px);
+    }
+&lt;/style&gt;
+
+&lt;p&gt;Unblurred:&lt;/p&gt;
+&lt;blockquote&gt;
+    Here's my amazing quote
+&lt;/blockquote&gt;
+
+&lt;p&gt;Blurred:&lt;/p&gt;
+&lt;blockquote class="blur-me"&gt;
+    Here's my amazing quote
+&lt;/blockquote&gt;
+
+&lt;p&gt;Note how the filter is applied to everything inside the element. Not only did it
+blur the DOM content, it also blurred content specified via CSS and also the
+properties themselves &amp;mdash; like the &lt;code&gt;border-left&lt;/code&gt; property.&lt;/p&gt;
+&lt;p&gt;This is both amazing but also sort of a pain at the same time. It means you can
+apply it to images, videos, and even canvas elements! But we don't usually want
+to blur absolutely everything, so there's a bit of leg work involved in
+obtaining something like a frosted glass effect.&lt;/p&gt;
+&lt;h2&gt;Frosted Glass with Video&lt;/h2&gt;
+&lt;style type="text/css"&gt;
+
+    .sandbox {
+        position:relative;
+        clear:both;
+        width: 100%;
+        padding-bottom: 56.25%;
+        margin-right: 0;
+        height: 0;
+        overflow:hidden;
+        margin-bottom:20px;
+    }
+
+    .sandbox video {
+        margin-right: 0;
+        float: none;
+        width: 100%;
+    }
+
+    .demo-video {
+        position:absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
+
+    .blurred {
+        -webkit-filter: blur(20px);
+        filter: blur(20px);
+        z-index: -2;
+    }
+
+    .sharp {
+        -webkit-clip-path: polygon(0 0, 0 100%, 40% 100%, 40% 0, 80% 0, 80% 100%, 100% 100%, 100% 0);
+        clip-path: polygon(0 0, 0 100%, 40% 100%, 40% 0, 80% 0, 80% 100%, 100% 100%, 100% 0);
+    }
+
+    .article .blurred-position {
+        position: absolute;
+        left: 40%;
+        width: 40%;
+        height:100%;
+        box-sizing: border-box;
+        padding:40px;
+    }
+
+    .article .blurred-position * {
+        margin: 0;
+        float: none;
+        width: 100%;
+        color: #fff;
+    }
+
+    .sandbox.transform {
+        -webkit-perspective: 1500px;
+        -webkit-transform: scale(.5);
+        perspective: 1500px;
+        transform: scale(.5);
+        overflow:visible;
+    }
+
+    .sandbox.transform .demo-video {
+        -webkit-transform: rotateY(40deg);
+    }
+
+    .sandbox.transform .sharp {
+        -webkit-transform: rotateY(40deg) translate(10%, 10%);
+    }
+
+    .sandbox.transform .blurred-position {
+        -webkit-transform: rotateY(40deg) translate(30%, 30%);
+    }
+
+
+&lt;/style&gt;
+
+&lt;div class="sandbox constrain"&gt;
+    &lt;video class="demo-video blurred" loop autoplay&gt;
+        &lt;source src="./videos/frosted-glass-with-filter-blur/example.ogv" type="video/ogg" codecs="theora,vorbis"&gt;
+    &lt;/video&gt;
+    &lt;video class="demo-video sharp" loop autoplay&gt;
+        &lt;source src="./videos/frosted-glass-with-filter-blur/example.ogv" type="video/ogg" codecs="theora,vorbis"&gt;
+    &lt;/video&gt;
+    &lt;div class="blurred-position"&gt;
+        &lt;h2&gt;Bacon ipsum dolor amet&lt;/h2&gt;
+
+        &lt;p&gt;Bacon ipsum dolor amet bacon tenderloin bresaola turducken meatball,
+        beef short ribs sirloin. Pork loin prosciutto ribeye, sirloin short ribs
+        hamburger pork chop tongue. Ham short loin corned beef meatball beef ribs.
+        Sirloin chicken jowl pig pork loin meatball, salami spare ribs.&lt;/p&gt;
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;Pretty impressive right? To think how long we've dreamed for this to be possible
+on images, only to find out we can do it on videos!&lt;/p&gt;
+&lt;p&gt;It's a bit difficult to figure the above example works when you see it flat like
+that, so here it is transformed a bit&amp;hellip;&lt;/p&gt;
+&lt;div class="sandbox transform"&gt;
+    &lt;video class="demo-video blurred" loop autoplay&gt;
+        &lt;source src="./videos/frosted-glass-with-filter-blur/example.ogv" type="video/ogg" codecs="theora,vorbis"&gt;
+    &lt;/video&gt;
+    &lt;video class="demo-video sharp" loop autoplay&gt;
+        &lt;source src="./videos/frosted-glass-with-filter-blur/example.ogv" type="video/ogg" codecs="theora,vorbis"&gt;
+    &lt;/video&gt;
+    &lt;div class="blurred-position"&gt;
+        &lt;h2&gt;Bacon ipsum dolor amet&lt;/h2&gt;
+
+        &lt;p&gt;Bacon ipsum dolor amet bacon tenderloin bresaola turducken meatball,
+        beef short ribs sirloin. Pork loin prosciutto ribeye, sirloin short ribs
+        hamburger pork chop tongue. Ham short loin corned beef meatball beef ribs.
+        Sirloin chicken jowl pig pork loin meatball, salami spare ribs.&lt;/p&gt;
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;We've got two &lt;code&gt;&amp;lt;video&amp;gt;&lt;/code&gt; elements that are playing the same video, both
+positioned &lt;code&gt;absolute&lt;/code&gt; with different a &lt;code&gt;z-index&lt;/code&gt; each &amp;mdash; so they sit ontop
+of one another.  I'm combining the &lt;code&gt;clip-path&lt;/code&gt; property with a CSS shape defined
+with &lt;code&gt;polygon&lt;/code&gt; to clip a hole in the sharp &lt;code&gt;video&lt;/code&gt; so the blurred &lt;code&gt;video&lt;/code&gt; shows
+through.&lt;/p&gt;
+&lt;p&gt;There's also a &lt;code&gt;&amp;lt;div&amp;gt;&lt;/code&gt; element that is sitting ontop of both of the videos that
+matches the position of the hole in the &lt;code&gt;clip-path&lt;/code&gt;. This is just a standard
+element, so we can do things like add transparent backgrounds with &lt;code&gt;rgba()&lt;/code&gt; for
+'tinted glass' effects.&lt;/p&gt;
+&lt;p&gt;Here's some code for you to try:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;container&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;video&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;demo-video blurred&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;loop&lt;/span&gt; &lt;span class="err"&gt;autoplay&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;source&lt;/span&gt; &lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;path/to/video&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;video/ogg&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;codecs=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;theora,vorbis&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/video&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;video&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;demo-video sharp&amp;quot;&lt;/span&gt; &lt;span class="err"&gt;loop&lt;/span&gt; &lt;span class="err"&gt;autoplay&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;source&lt;/span&gt; &lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;path/to/video&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;video/ogg&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;codecs=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;theora,vorbis&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/video&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;blurred-position&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;h2&amp;gt;&lt;/span&gt;Here&amp;#39;s some text too&lt;span class="nt"&gt;&amp;lt;/h2&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+
+&lt;span class="nt"&gt;&amp;lt;style&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;text/css&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    .container {
+        position: relative;
+        height: 0;
+        padding-bottom: 56.25%; /* (16:9 aspect ratio) */
+        width:100%;
+    }
+
+    .demo-video {
+        position:absolute;
+        top:0;
+        right:0;
+        bottom:0;
+        left:0;
+        z-index: -1;
+    }
+
+    .blurred {
+        z-index: -2;
+        -webkit-filter: blur(20px);
+        filter: blur(20px);
+    }
+
+    .blurred-position {
+        position: absolute;
+        left: 40%;
+        width: 40%;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 40px;
+        color: #fff;
+    }
+
+
+    /* Use percentages so it&amp;#39;s responsive! */
+    .sharp {
+        -webkit-clip-path: polygon(0 0, 0 100%, 40% 100%, 40% 0, 80% 0, 80% 100%, 100% 100%, 100% 0);
+        clip-path: polygon(0 0, 0 100%, 40% 100%, 40% 0, 80% 0, 80% 100%, 100% 100%, 100% 0);
+    }
+&lt;span class="nt"&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="CSS"></category></entry><entry><title>Make front-end unit tests easy with karma</title><link href="http://ralphsaunders.co.uk/karma-unit-testing.html" rel="alternate"></link><updated>2014-11-25T13:45:00+00:00</updated><author><name>Ralph Saunders</name></author><id>tag:ralphsaunders.co.uk,2014-11-25:karma-unit-testing.html</id><summary type="html">&lt;p&gt;Unit tests are good but can sometimes be a pain to work with. It doesn't have to
 be this way though! With a good workflow unit testing should actually help
 development rather than hinder it. With that in mind, front-end unit tests should:&lt;/p&gt;
 &lt;ul&gt;
