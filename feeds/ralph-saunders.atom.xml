@@ -53,6 +53,8 @@ obtaining something like a frosted glass effect.&lt;/p&gt;
         height: 0;
         overflow:hidden;
         margin-bottom:20px;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
     }
 
     .sandbox video {
@@ -233,6 +235,7 @@ element, so we can do things like add transparent backgrounds with &lt;code&gt;r
 
 
 &lt;script type="text/javascript"&gt;
+    // Start videos at the same time
     var videosLoaded = 0;
 
     var videos = [].map.call(document.querySelectorAll('video'), function(video) {
@@ -241,13 +244,15 @@ element, so we can do things like add transparent backgrounds with &lt;code&gt;r
         video.addEventListener('loadeddata', function() {
             videoLoaded();
         }, false)
+
+        return video;
     })
 
     function videoLoaded() {
         videosLoaded ++;
 
         if(videosLoaded === videos.length) {
-            [].map.call(document.querySelectorAll('video'), function(video) {
+            videos.map(function(video) {
                 video.play();
             })
         }
