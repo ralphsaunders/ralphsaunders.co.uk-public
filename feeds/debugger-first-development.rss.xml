@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ralphsaunders.co.uk</title><link>http://ralphsaunders.co.uk/</link><description></description><atom:link href="http://ralphsaunders.co.uk/feeds/debugger-first-development.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 11 May 2015 20:10:00 +0100</lastBuildDate><item><title>Debugger First Development</title><link>http://ralphsaunders.co.uk/debugger-first-development.html</link><description>&lt;p&gt;Modified 2015-05-11 20:12
+Category: FED
+Tags: javascript, fed-tooling
+Slug: debugger-first-dev
+Authors: Ralph Saunders
+Summary: &lt;strong&gt;Javascript is the only language I know with state of the art debugging tools that are installed at the machine you happen to be next to. Use them.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;When I first started writing javascript it was like any other language. I’d
+have my trusty text editor and a browser with two tabs - one with the page I
+was working on and the other with &lt;a href="https://developer.mozilla.org/en-US/"&gt;MDN&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Now it looks more like this.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Make With Stuff &amp;amp;mdash; Top
+Secret" src="../images/dist/debugger-first-development/make-with-stuff.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Javascript is the only language I know with state of the art debugging and
+analysis tools that are very likely installed at the machine you happen to be
+sitting at. Despite this, I still see  developers writing things like
+&lt;code&gt;console.log(i + ‘ items’)&lt;/code&gt;, and
+&lt;code&gt;console.log($(‘.some-element’).outerHeight())&lt;/code&gt; &amp;mdash; seemingly unaware of
+the wonderous tools that come installed with the browsers they use every day.&lt;/p&gt;
+&lt;h2&gt;Could you be using web inspector better?&lt;/h2&gt;
+&lt;p&gt;If you find yourself doing any of these, it’s likely you could be using web
+inspect better:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;console.log&lt;/code&gt;ing variables ad-nauseum.&lt;/li&gt;
+&lt;li&gt;Guessing at variable and function names.&lt;/li&gt;
+&lt;li&gt;Making lots of small code changes resulting in back and forth between browser
+  and code until it’s right.&lt;/li&gt;
+&lt;li&gt;Experimenting/playing in a text editor vs interactive console.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Using Web Inspect Debugger&lt;/h2&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Ralph Saunders</dc:creator><pubDate>Mon, 11 May 2015 20:10:00 +0100</pubDate><guid>tag:ralphsaunders.co.uk,2015-05-11:debugger-first-development.html</guid></item></channel></rss>

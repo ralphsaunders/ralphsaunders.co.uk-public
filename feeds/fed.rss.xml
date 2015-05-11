@@ -1,8 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ralphsaunders.co.uk</title><link>http://ralphsaunders.co.uk/</link><description></description><atom:link href="http://ralphsaunders.co.uk/feeds/fed.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 26 May 2015 14:57:00 +0100</lastBuildDate><item><title>jQuery is dead</title><link>http://ralphsaunders.co.uk/jquery-is-dead.html</link><description>&lt;p&gt;Over the past twelve months it seems there’s been a surge in the usage of javascript frameworks. Everyone and their mother seems to be rolling out one of the many choices in their web builds. Whether it’s &lt;a href="https://angularjs.org/"&gt;AngularJS&lt;/a&gt;, &lt;a href="https://facebook.github.io/react/"&gt;React&lt;/a&gt;, or &lt;a href="http://emberjs.com/"&gt;Ember.js&lt;/a&gt;; every front-end developer seems to be hot under the collar about feature X in framework Y. &lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ralphsaunders.co.uk</title><link>http://ralphsaunders.co.uk/</link><description></description><atom:link href="http://ralphsaunders.co.uk/feeds/fed.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 11 May 2015 20:20:00 +0100</lastBuildDate><item><title>Debugger-First JS Development</title><link>http://ralphsaunders.co.uk/debugger-first-dev.html</link><description>&lt;p&gt;When I first started writing javascript it was like any other language. I’d
+have my trusty text editor and a browser with two tabs - one with the page I
+was working on and the other with &lt;a href="https://developer.mozilla.org/en-US/"&gt;MDN&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Now it looks more like this:
+&lt;div class="full-width"&gt;
+    &lt;img src="../images/dist/debugger-first-development/make-with-stuff.png" alt="Make with stuff &amp;mdash; top secret" /&gt;
+    &lt;figcaption&gt;
+        Javascript is the only language I know with state of the art debugging and
+        analysis tools that are very likely installed at the machine you happen to be
+        sitting at.
+    &lt;/figcaption&gt;
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;Despite this, I still see  developers writing things like
+&lt;code&gt;console.log(i + ‘ items’)&lt;/code&gt;, and
+&lt;code&gt;console.log($(‘.some-element’).outerHeight())&lt;/code&gt; &amp;mdash; seemingly unaware of
+the wonderous tools that come installed with the browsers they use every day.&lt;/p&gt;
+&lt;p&gt;Could you be using web inspector better?&lt;/p&gt;
+&lt;p&gt;If you find yourself doing any of these, it’s likely you could be using web
+inspect better:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;console.log()&lt;/code&gt;ing variables ad-nauseum.&lt;/li&gt;
+&lt;li&gt;Guessing at variable and function names.&lt;/li&gt;
+&lt;li&gt;Making lots of small code changes resulting in back and forth between browser
+  and code until it’s right.&lt;/li&gt;
+&lt;li&gt;Experimenting/playing in a text editor vs interactive console.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Using web inspector&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://developer.chrome.com/devtools"&gt;Chrome DevTools&lt;/a&gt; is an amazingly powerful and in-depth piece of software, so I suggest you invest some time looking at the guide (it’s a really good guide!). Instead I’m going to talk about your new favourite statement:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;debugger;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Here’s how to use it:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Stick that anywhere in your code where you want stuff to stop.&lt;/li&gt;
+&lt;li&gt;Reload the page with web inspector open.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;You’ll end up with a big panel of code in the middle of your screen. It isn’t there to look pretty - not only can you modify, save, and re-run the code; you can also evaluate any expression by highlighting, right-clicking, and selecting ‘evaluate in console’.&lt;/p&gt;
+&lt;p&gt;There’s some other panels too:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Call Stack&lt;/strong&gt; - a list of functions inside the current stack that have been called up until your debugger statement. You can move around freely in your program by clicking these.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Scope Variables&lt;/strong&gt; - variables that are available in the current scope. This allows you to see what data you’ve got at your disposal.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Console&lt;/strong&gt; - you can also bring up an interactive console by hitting your &lt;code&gt;escape&lt;/code&gt; key &amp;mdash; allowing you to combine any of your local variables with whatever javascript you want.&lt;/p&gt;
+&lt;p&gt;That’s it - a fully interactive environment to play/experiment/test with at your disposal. To take this to the next level, you can save all your changes locally when you setup &lt;a href="https://developer.chrome.com/devtools/docs/workspaces"&gt;workspaces&lt;/a&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Ralph Saunders</dc:creator><pubDate>Mon, 11 May 2015 20:20:00 +0100</pubDate><guid>tag:ralphsaunders.co.uk,2015-05-11:debugger-first-dev.html</guid><category>javascript</category><category>fed-tooling</category></item><item><title>jQuery is dead</title><link>http://ralphsaunders.co.uk/jquery-is-dead.html</link><description>&lt;p&gt;Over the past twelve months it seems there’s been a surge in the usage of javascript frameworks. Everyone and their mother seems to be rolling out one of the many choices in their web builds. Whether it’s &lt;a href="https://angularjs.org/"&gt;AngularJS&lt;/a&gt;, &lt;a href="https://facebook.github.io/react/"&gt;React&lt;/a&gt;, or &lt;a href="http://emberjs.com/"&gt;Ember.js&lt;/a&gt;; every front-end developer seems to be hot under the collar about feature X in framework Y.&lt;/p&gt;
 &lt;p&gt;And why wouldn’t they be? Frameworks are a wonderful paradise of structured code, proven abstractions, and community support. No longer will the front-end developer have to trawl through some imposter’s jQuery DOM-bound spaghetti searching for that illusive function that sets the entire page in motion  &amp;mdash; yes page, not component.&lt;/p&gt;
 &lt;p&gt;Or so I thought.&lt;/p&gt;
-&lt;p&gt;Then I picked through an implementation of a multi-faceted search written by an Angular newbie and begrudgingly noted that bad code can happen anywhere. It seems that in actuality, tools that require more upfront knowledge do more harm than good in the hands of the inexperienced. &lt;/p&gt;
+&lt;p&gt;Then I picked through an implementation of a multi-faceted search written by an Angular newbie and begrudgingly noted that bad code can happen anywhere. It seems that in actuality, tools that require more upfront knowledge do more harm than good in the hands of the inexperienced.&lt;/p&gt;
 &lt;p&gt;On the face of it the code was somewhat more structured than any given piece of jQuery you may come across. It used some of the proven abstractions like controllers and models. It even had a service! Unfortunately it used most of the abstractions poorly. The controller was many hundreds of lines long and did everything on the page. The models did more than hold state and data. In essence, the tools the framework provided were missused because the developer didn’t know what they were for.&lt;/p&gt;
 &lt;p&gt;Frameworks are a wonderful paradise if you have experience of the concepts they implement; they aren’t a magical replacement for good practice and discipline. That said, jQuery is definitely still dead. Here’s why.&lt;/p&gt;
 &lt;p&gt;In jQuery we often see some code like this:&lt;/p&gt;
@@ -93,7 +135,7 @@
 
 &lt;p&gt;We just added a feature to our lightbox directive without modifying any code in the view and without doing any DOM manipulation. This is the power of the template.&lt;/p&gt;
 &lt;h2&gt;DOM manipulation sucks and you know it does&lt;/h2&gt;
-&lt;p&gt;Have you ever looked at the source of a jQuery slider, accordion, or lightbox and seen hundreds of lines of code that are there just to manipulate how the DOM is displaying a particular state? &lt;/p&gt;
+&lt;p&gt;Have you ever looked at the source of a jQuery slider, accordion, or lightbox and seen hundreds of lines of code that are there just to manipulate how the DOM is displaying a particular state?&lt;/p&gt;
 &lt;p&gt;I have - usually to fix some obscure bug that only happens after a particular sequence of things. Only moments after reading the bug report you’ve broken a sweat because you just know this bug is going to be in DOM manipulation soup. You’re going to wade through a few lines of state and many lines of addClass() and appendTo() until you reside on the floor, weeping, waiting for the misery to end.&lt;/p&gt;
 &lt;p&gt;Is it any wonder why when you look at how most jQuery is written? See, when you write some jQuery you end up:&lt;/p&gt;
 &lt;ol&gt;
@@ -104,12 +146,12 @@
 &lt;/ol&gt;
 &lt;p&gt;Compare that with Angular, where you end up:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;Extending HMTL with data attributes to bind events.&lt;/li&gt;
+&lt;li&gt;Extending HTML with data attributes to bind events.&lt;/li&gt;
 &lt;li&gt;Crafting a template that will display data.&lt;/li&gt;
 &lt;li&gt;Writing javascript to modify state of modular components.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Yeah, jQuery is dead not because frameworks make you write better code - we know they don’t - but because your framework does DOM manipulation better than you ever could.&lt;/p&gt;
-&lt;p&gt;Please learn a framework properly and then come join me in my paradise.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Ralph Saunders</dc:creator><pubDate>Tue, 26 May 2015 14:57:00 +0100</pubDate><guid>tag:ralphsaunders.co.uk,2015-05-26:jquery-is-dead.html</guid><category>javascript</category></item><item><title>Frosted Glass With filter:blur()</title><link>http://ralphsaunders.co.uk/frosted-glass-with-filter-blur.html</link><description>&lt;p&gt;&lt;code&gt;filter: blur()&lt;/code&gt; is an awesome part of the new-ish &lt;a href="http://www.w3.org/TR/filter-effects/"&gt;filter effects module in the
+&lt;p&gt;Please learn a framework properly and then come join me in my paradise.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Ralph Saunders</dc:creator><pubDate>Sun, 26 Apr 2015 14:57:00 +0100</pubDate><guid>tag:ralphsaunders.co.uk,2015-04-26:jquery-is-dead.html</guid><category>javascript</category></item><item><title>Frosted Glass With filter:blur()</title><link>http://ralphsaunders.co.uk/frosted-glass-with-filter-blur.html</link><description>&lt;p&gt;&lt;code&gt;filter: blur()&lt;/code&gt; is an awesome part of the new-ish &lt;a href="http://www.w3.org/TR/filter-effects/"&gt;filter effects module in the
 W3 CSS spec&lt;/a&gt;. In short, the filter module
 allows you to apply filters &amp;mdash; like grayscale, sepia, blur, and so on
 &amp;mdash; to DOM elements. It's made its way into
