@@ -14,12 +14,12 @@ was working on and the other with &lt;a href="https://developer.mozilla.org/en-U
 &lt;p&gt;Despite this, I still see  developers writing things like
 &lt;code&gt;console.log(i + ‘ items’)&lt;/code&gt;, and
 &lt;code&gt;console.log($(‘.some-element’).outerHeight())&lt;/code&gt; &amp;mdash; seemingly unaware of
-the wonderous tools that come installed with the browsers they use every day.&lt;/p&gt;
+the wondrous tools that come installed with the browsers they use every day.&lt;/p&gt;
 &lt;p&gt;Could you be using web inspector better?&lt;/p&gt;
 &lt;p&gt;If you find yourself doing any of these, it’s likely you could be using web
 inspect better:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;console.log()&lt;/code&gt;ing variables ad-nauseum.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;console.log()&lt;/code&gt;ing variables ad nauseam.&lt;/li&gt;
 &lt;li&gt;Guessing at variable and function names.&lt;/li&gt;
 &lt;li&gt;Making lots of small code changes resulting in back and forth between browser
   and code until it’s right.&lt;/li&gt;
