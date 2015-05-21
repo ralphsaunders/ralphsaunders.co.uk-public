@@ -1,5 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>ralphsaunders.co.uk</title><link href="http://ralphsaunders.co.uk/" rel="alternate"></link><link href="http://ralphsaunders.co.uk/feeds/ralph-saunders.atom.xml" rel="self"></link><id>http://ralphsaunders.co.uk/</id><updated>2015-05-11T20:20:00+01:00</updated><entry><title>Debugger-First JS Development</title><link href="http://ralphsaunders.co.uk/debugger-first-dev.html" rel="alternate"></link><updated>2015-05-11T20:20:00+01:00</updated><author><name>Ralph Saunders</name></author><id>tag:ralphsaunders.co.uk,2015-05-11:debugger-first-dev.html</id><summary type="html">&lt;p&gt;When I first started writing javascript it was like any other language. I’d
+<feed xmlns="http://www.w3.org/2005/Atom"><title>ralphsaunders.co.uk</title><link href="http://ralphsaunders.co.uk/" rel="alternate"></link><link href="http://ralphsaunders.co.uk/feeds/ralph-saunders.atom.xml" rel="self"></link><id>http://ralphsaunders.co.uk/</id><updated>2015-05-21T23:19:00+01:00</updated><entry><title>JavaScript is no longer the antihero</title><link href="http://ralphsaunders.co.uk/javascript-is-not-the-antihero.html" rel="alternate"></link><updated>2015-05-21T23:19:00+01:00</updated><author><name>Ralph Saunders</name></author><id>tag:ralphsaunders.co.uk,2015-05-21:javascript-is-not-the-antihero.html</id><summary type="html">&lt;p&gt;A little over a week ago I read an interesting article that appeared on Hacker
+News about &lt;a href="http://searchengineland.com/tested-googlebot-crawls-JavaScript-heres-learned-220157"&gt;how the Googlebot crawls
+JavaScript&lt;/a&gt;,
+which was quite informative and interesting although probably only to those who
+write JavaScript powered websites/applications on a day-to-day basis - like me.&lt;/p&gt;
+&lt;p&gt;What I found even more interesting were some of the reactions on the &lt;a href="https://news.ycombinator.com/item?id=9529782"&gt;Hacker
+News comment thread&lt;/a&gt;. I was quite
+surprised (well, I am quite naive) to see some of the discussion contain some
+anti-JavaScript sentiment. This is probably a good point to say that I am very
+much pro-JavaScript and consider it a technology that has driven the web's
+progression from static documents to interactive experiences (like google
+maps).&lt;/p&gt;
+&lt;p&gt;I’m going to pick on someone now.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;IMHO: Websites that don’t have “realtime” content should always stick with
+traditional HTML. I’m a Webdeveloper myself and i don’t like the JavaScript
+Frontend trend.&lt;/p&gt;
+&lt;p&gt;Many Devs use Frontend JS in places where it’s absolutely not needed. If
+you’re building an App that updates in realtime, shows informations while
+it’s created, i’m fine with Frontend JS, but it’s an overkill for most
+content pages.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href="https://news.ycombinator.com/item?id=9530598"&gt;axx&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;When I read this it sort of blew my mind. How can a developer be against
+client-side JavaScript for anything other than realtime content?! Clearly we
+disagree.&lt;/p&gt;
+&lt;p&gt;JavaScript can be used to enhance almost any interaction that changes the state
+of a “widget”. That goes for presenting more information, facilitating CRUD
+actions, and creating rich media experiences such as visualisations. &lt;em&gt;It’s just
+we’ve only recently started to get good at doing it quickly&lt;/em&gt;.&lt;/p&gt;
+&lt;h2&gt;Crafting effective experiences with JavaScript&lt;/h2&gt;
+&lt;p&gt;Designing how we consume and interact with the web fundamentally changed when
+AJAX became a thing. Click a button and watch something happen onscreen. Then
+iPhone apps happened and they were doing it too… and better?! Ever since, the
+web has looked slow by comparison and everyone points fingers at JavaScript for
+being rubbish.&lt;/p&gt;
+&lt;p&gt;It’s a bit unfair though! We definitely can write performant JavaScript, it’s
+just historically we haven’t. We could pontificate forever why that was, but
+I’d rather put a few easy to implement ideas out there and get some discussion
+going!&lt;/p&gt;
+&lt;h3&gt;Data first approach&lt;/h3&gt;
+&lt;p&gt;A lot of problematic JavaScript I’ve encountered in production suffered from
+data bloat. The more data you need, the more data you have to wait for - that
+bloat counts on page load, per frame, and on clean up. There’s a few common
+things that come up when looking to optimise data and most can be dealt with
+server side:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;GZIP data being sent&lt;/li&gt;
+&lt;li&gt;Remove unused properties from APIs where possible.&lt;/li&gt;
+&lt;li&gt;Move non-unique properties in repeated objects to a ‘summary’ type object.&lt;/li&gt;
+&lt;li&gt;If data is available on the server (and you know the client will need it
+   immediately) send it inline with the page.&lt;/li&gt;
+&lt;li&gt;Defer loading of data not exposed to the user immediately to a subsequent
+   API where possible.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Inline data&lt;/h4&gt;
+&lt;p&gt;Here’s a todo list component.&lt;/p&gt;
+&lt;div class="full-width"&gt;
+    &lt;img src="../images/dist/no-longer-the-antihero/todo-list-wireframe.png" alt="Todo list wireframe" /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Back in them olden days, we might have had the server render the markup and
+then use JavaScript to extend it. But, it’s dynamic enough that reading/writing
+from the DOM isn’t trivial. The features of this todo list include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Creating items&lt;/li&gt;
+&lt;li&gt;Reordering items&lt;/li&gt;
+&lt;li&gt;Editing items&lt;/li&gt;
+&lt;li&gt;Deleting items&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The benefit of rendering the markup on the server that we don’t want to lose is
+the data being on the page as soon as it loads. A lot of applications make the
+mistake of serving an empty page very quickly and then fetching all the data
+after the initial load. An alternative is to inline the data like so:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;script&amp;gt;&lt;/span&gt;
+    var todoItems = [
+        {
+            id: ‘14a29154-4be5-45e7-aa65-40585f94cd85’
+            value: ‘Make Espresso’,
+            done: true
+        },
+        {
+            id: ‘da8ee3c9-1701-4547-8dfe-b6c4ee4f4893’
+            value: ‘2x20 intervals’,
+            done: false
+        }
+    ];
+&lt;span class="nt"&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;While we can’t display that data as soon as the page loads, we can display it
+as soon as the JavaScript executes, which is pretty quick and can be optimised
+for.&lt;/p&gt;
+&lt;h4&gt;Deferred Data&lt;/h4&gt;
+&lt;p&gt;Let’s add a feature to the todo example above which allows people to add notes
+to a todo item. We could just extend our todoItems array that’s in the page:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;script&amp;gt;&lt;/span&gt;
+    var todoItems = [
+        {
+            id: ‘14a29154-4be5-45e7-aa65-40585f94cd85’
+            value: ‘Make Espresso’,
+            done: true
+        },
+        {
+            id: ‘da8ee3c9-1701-4547-8dfe-b6c4ee4f4893’
+            value: ‘2x20 intervals’,
+            done: false,
+            note: ‘Meeting Brad at cemetery junction 9:30’
+        }
+    ];
+&lt;span class="nt"&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;But the todo list UI doesn’t allow users to see this detail until the interact
+with the specific todo item. Not adding this property means less data to query
+for, less data to send, and less data to load into memory.&lt;/p&gt;
+&lt;p&gt;The alternative is to create an API for getting further information or ‘detail’
+on a particular todo item - something like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;GET /api/todo/details/:id&lt;/span&gt;
+
+&lt;span class="err"&gt;{&lt;/span&gt;
+&lt;span class="err"&gt;    note: ‘Meeting Brad at cemetery junction 9:30’&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Obviously if this API is slow then the user experience will suffer. The data is
+pretty small, so it’s TTFB (time to first byte) we should monitor and optimise
+for on the server.&lt;/p&gt;
+&lt;h3&gt;Thinking in components&lt;/h3&gt;
+&lt;p&gt;The JavaScript in legacy websites and applications I encounter often looks
+pretty similar:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;There’s a lot of it&lt;/li&gt;
+&lt;li&gt;It’s grouped by “feature” if grouped at all&lt;/li&gt;
+&lt;li&gt;There’s a lot of duplicate/similar code&lt;/li&gt;
+&lt;li&gt;The vast majority of SLOC is focused around reading/writing from/to the DOM&lt;/li&gt;
+&lt;li&gt;It generally suffers from a lack of architecture and planned development&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;It’s not like all the previous maintainers of these websites were bad either -
+they’re probably representative of the average front-end developer at the time.
+It’s pretty obvious that frameworks can help solve most of these issues but
+people still aren’t using them even when they have a fair amount of JavaScript
+to maintain.&lt;/p&gt;
+&lt;p&gt;I think one of the reasons people shy away from frameworks is because they find
+they restrict the speed they can roll out code at the beginning of a project.
+You do have to architect the application you’re going to write if you want to
+create a good codebase. But given the issues above, I think this is a
+beneficial process.&lt;/p&gt;
+&lt;p&gt;JavaScript frameworks - well the good ones anyway - promote development in
+terms of components rather than features. When you write a component to do one
+job and it does it well, it can be used in multiple places. I like to think of
+this as an application of the &lt;a href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself"&gt;DRY
+principle&lt;/a&gt;, although I’m
+not sure how accurate this is.&lt;/p&gt;
+&lt;p&gt;There’s something to be said for the added intricacy of component oriented
+architecture. Components will likely consist of many sub-types working together
+- like Angular’s directives and services. These tools must be used optimally
+lest we end up with an application endlessly sprawling outwards with no code
+re-use. Components allow for easy code reuse, but they also make it easier than
+ever to just add another module without causing regression elsewhere.&lt;/p&gt;
+&lt;p&gt;Done right, a framework can solve issues 2 - 5 and maybe even issue #1 if your
+framework coaches you to write expressive code; it’s no guarantee however.&lt;/p&gt;
+&lt;h3&gt;The DOM is a poor data storage tool&lt;/h3&gt;
+&lt;p&gt;It seems like we’ve used the DOM to store information and JavaScript to
+manipulate the DOM forever. It made sense when JavaScript adoption was low,
+search engines only indexed source HTML, and there were many accessibility
+concerns - but none of these are true anymore! There are some clear
+disadvantages to relying on the DOM for data storage.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;You have to write JavaScript every time you want to read/write from the DOM.
+   That’s a lot of JavaScript.&lt;/li&gt;
+&lt;li&gt;Changes to the DOM have knock-on effects including repainting - the most
+   costly aspect of runtime performance.&lt;/li&gt;
+&lt;li&gt;Some libraries &lt;em&gt;cough&lt;/em&gt; jQuery &lt;em&gt;cough&lt;/em&gt; are a bit opaque and make it easy to
+   consecutively write/read to/from the DOM without the developer realising.&lt;/li&gt;
+&lt;li&gt;There may be many pieces of JavaScript modifying the DOM, so data you read
+   has to be validated as well.&lt;/li&gt;
+&lt;li&gt;It’s very difficult to craft consistent behaviour around inconsistent data.
+   It’s easy to introduce bugs into DOM driven applications.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Recent frameworks have turned to templating for a solution which provides
+flexible data binding for DOM behaviours. For most this is easier to maintain
+and perhaps even to write performant code for.&lt;/p&gt;
+&lt;h4&gt;jQuery vs Angular&lt;/h4&gt;
+&lt;p&gt;When we bind events to elements in jQuery we’re working with the target element
+unless we traverse the DOM for a wider scope, or bind the click to a parent
+element and query the DOM for child elements. This means we have to attach the
+data to the object we’re binding to, like so:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;button&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;“delete”&lt;/span&gt; &lt;span class="na"&gt;data-id=&lt;/span&gt;&lt;span class="s"&gt;“da8ee3c9-1701-4547-8dfe-b6c4ee4f4893”&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;“button”&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    Delete
+&lt;span class="nt"&gt;&amp;lt;/button&amp;gt;&lt;/span&gt;
+
+    // Bind this function to every instance of ‘.delete’ on this page
+$(‘.delete’).on(‘click’, function(e) {
+            // Extract ID from target
+    var todoId = $(e.target).data(‘id’);
+    // Fn() that sends AJAX request to delete todoID
+    deleteTodo(todoId);
+});
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;With Angular we can work with repeated elements that have a wider scope and can
+pass that scope around, no querying necessary.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;“todo-item”&lt;/span&gt; &lt;span class="na"&gt;data-ng-repeat=&lt;/span&gt;&lt;span class="s"&gt;“todo&lt;/span&gt; &lt;span class="err"&gt;in&lt;/span&gt; &lt;span class="err"&gt;todoItems”&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;button&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;“delete”&lt;/span&gt; &lt;span class="na"&gt;data-ng-click=&lt;/span&gt;&lt;span class="s"&gt;“delete(todo)”&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;“button”&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+        Delete
+    &lt;span class="nt"&gt;&amp;lt;/button&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;There are some obvious benefits to this approach.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;There is less JavaScript to write/maintain because the framework handles the
+  DOM mutation.&lt;/li&gt;
+&lt;li&gt;You get a clear understanding of how the component is glued together by just
+  viewing the source HTML.&lt;/li&gt;
+&lt;li&gt;This follows DRY principles where we reference one object the application
+  already knows about, rather than using new data read from the DOM.&lt;/li&gt;
+&lt;li&gt;It’s generally a much more expressive piece of code.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;A sense of maturity&lt;/h2&gt;
+&lt;p&gt;In a lot of ways it feels like this turn towards templating, frameworks that
+enforce MVC or MVVM approaches - or &lt;em&gt;heck&lt;/em&gt; just enforcing a pattern at all - is
+a sign that Front-end development is growing up.&lt;/p&gt;
+&lt;p&gt;While we can still throw script on a page and have it work, we have the option
+to use tools that help craft better code and experiences - though a little
+discipline is required.&lt;/p&gt;</summary><category term="javascript"></category></entry><entry><title>Debugger-First JS Development</title><link href="http://ralphsaunders.co.uk/debugger-first-dev.html" rel="alternate"></link><updated>2015-05-11T20:20:00+01:00</updated><author><name>Ralph Saunders</name></author><id>tag:ralphsaunders.co.uk,2015-05-11:debugger-first-dev.html</id><summary type="html">&lt;p&gt;When I first started writing javascript it was like any other language. I’d
 have my trusty text editor and a browser with two tabs - one with the page I
 was working on and the other with &lt;a href="https://developer.mozilla.org/en-US/"&gt;MDN&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Now it looks more like this:
