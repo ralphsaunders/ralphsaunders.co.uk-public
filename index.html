@@ -1,6 +1,6 @@
 <!doctype html>
 <html>
-    <head lang="en-us">
+    <head lang="en">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,48 +9,85 @@
         <meta name="copyright" content="Ralph Saunders" />
 
         <title>ralphsaunders.co.uk</title>
-<link href="http://ralphsaunders.co.uk/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ralphsaunders.co.uk - Full Atom Feed" />
-<link href="http://ralphsaunders.co.uk/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="ralphsaunders.co.uk - Full RSS Feed" />
 
         <!-- Stylesheets -->
-        <link rel="stylesheet" href="./theme/css/build/compiled.css" />
+        <link rel="stylesheet" href="./theme/css/main.css" />
 
         <!-- Typekit -->
         <script>
-            (function(d) {
-                var config = {
-                    kitId: 'umd0yin',
-                    scriptTimeout: 3000
-                },
-                h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='//use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
-            })(document);
+          (function(d) {
+            var config = {
+              kitId: 'umd0yin',
+              scriptTimeout: 3000,
+              async: true
+            },
+            h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+          })(document);
         </script>
 
     </head>
     <body>
-        <div class="wrapper">
-            <h1 class="sitename">ralphsaunders.co.uk</h1>
-            <p>Yeah, so this is my blog and stuff</p>
 
-            <ol class="article-list">
-                <li class="article-list-item"><a href="javascript-is-not-the-antihero.html">JavaScript is no longer the antihero</a></li>
-                <li class="article-list-item"><a href="debugger-first-dev.html">Debugger-First JS Development</a></li>
-                <li class="article-list-item"><a href="jquery-is-dead.html">jQuery is dead</a></li>
-                <li class="article-list-item"><a href="frosted-glass-with-filter-blur.html">Frosted Glass With filter:blur()</a></li>
-                <li class="article-list-item"><a href="karma-unit-testing.html">Make front-end unit tests easy with karma</a></li>
-                <li class="article-list-item"><a href="automatic-css-sprites.html">Automate sprites with css-sprite &amp; stylus</a></li>
-            </ol>
+        <div id="barba-wrapper">
+            <div class="barba-container">
+
+                <section class="articles-section contain-small">
+                    <h2>Articles</h2>
+
+                    <ol class="">
+                        <li>
+                            <a href="javascript-is-not-the-antihero.html" title="JavaScript is no longer the antihero">
+                                <span class="pubdate">May-2015</span>
+                                JavaScript is no longer the antihero
+                            </a>
+                        </li>
+                        <li>
+                            <a href="debugger-first-dev.html" title="Debugger-First JS Development">
+                                <span class="pubdate">May-2015</span>
+                                Debugger-First JS Development
+                            </a>
+                        </li>
+                        <li>
+                            <a href="jquery-is-dead.html" title="jQuery is dead">
+                                <span class="pubdate">Apr-2015</span>
+                                jQuery is dead
+                            </a>
+                        </li>
+                        <li>
+                            <a href="frosted-glass-with-filter-blur.html" title="Frosted Glass With filter:blur()">
+                                <span class="pubdate">Dec-2014</span>
+                                Frosted Glass With filter:blur()
+                            </a>
+                        </li>
+                        <li>
+                            <a href="karma-unit-testing.html" title="Make front-end unit tests easy with karma">
+                                <span class="pubdate">Nov-2014</span>
+                                Make front-end unit tests easy with karma
+                            </a>
+                        </li>
+                        <li>
+                            <a href="automatic-css-sprites.html" title="Automate sprites with css-sprite &amp; stylus">
+                                <span class="pubdate">Nov-2014</span>
+                                Automate sprites with css-sprite &amp; stylus
+                            </a>
+                        </li>
+                    </ol>
+                </section>
+
+
+
+                    <script src="./theme/js/commons.chunk.js" async></script>
+                    <script src="./theme/js/index.js" async></script>
+            </div>
         </div>
 
         <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-          ga('create', 'UA-57038003-1', 'auto');
-          ga('send', 'pageview');
-
+            ga('create', 'UA-57038003-1', 'auto');
         </script>
     </body>
 </html>
