@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+    <head lang="en">
+            <title>Testing Async JavaScript with Mocha & Chai</title>
+
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta property="og:url"         content="testing-asynchronous-javascript-with-mocha-chai.html" />
+        <meta property="og:type"        content="website" />
+        <meta property="og:title"       content="Testing Async JavaScript with Mocha & Chai" />
+        <meta property="og:description" content="" />
+        <meta property="og:image"       content="" />
+
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="./theme/css/main.css" />
+
+        <!-- Typekit -->
+        <script>
+          (function(d) {
+            var config = {
+              kitId: 'umd0yin',
+              scriptTimeout: 3000,
+              async: true
+            },
+            h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+          })(document);
+        </script>
+
+    </head>
+    <body class="">
+
+        <noscript>
+            <div class="javascript-disabled">
+                <div class="wrapper">
+                    <h2>Hey, we noticed you have javascript disabled in your
+                        browser.</h2>
+                    <p>Enable javascript in your browser to fully experience this
+                    website. <a href="http://enable-javascript.com/"
+                        target="_blank">Here are some handy instructions!</a></p>
+                </div>
+            </div>
+        </noscript>
+
+        <div id="barba-wrapper">
+            <div class="barba-container">
+
+
+        <section class="articles-section article-page contain-small">
+            <h2>Articles <a href=".">Home</a></h2>
+        </section>
+
+        <article class="article">
+            <header class="header-area">
+
+                <div class="contain-small">
+                    <h1 class="header-title">Testing Async JavaScript with Mocha & Chai</h1>
+                </div>
+            </header>
+
+            <section class="article-body" role="main">
+                <div class="contain-small">
+                    <p>Writing unit tests for asynchronous JavaScript can present issues. Unit testing
+frameworks that are around now can handle Promises, allowing us to write unit
+tests that asynchronously fetch data. Async DOM manipulation however is often
+not explicitly discussed – perhaps unit testing DOM manipulation is a fools
+errand? Nonetheless I spent some time figuring out how to write a unit test for
+a piece of JavaScript that used RequestAnimationFrame when doing DOM
+manipulation.</p>
+<p>A few years ago I wrote about <a href="./karma-unit-testing.html">managing unit testing workflow using
+Karma</a>, using Jasmine as my go-to framework. I went
+on a bit of a journey and it turns out that <a href="https://jasmine.github.io/2.5/introduction#section-Asynchronous_Support">Jasmine does have asynchronous
+support</a>,
+but the examples below where achieved with <a href="https://mochajs.org/">Mocha</a> and
+<a href="http://chaijs.com/">Chai</a> (although they basically read pretty much exactly the
+same).</p>
+<p>Mocha makes writing asynchronous unit tests <a href="https://mochajs.org/#asynchronous-code">really
+easy</a> by adding callback support. It
+also has <a href="https://mochajs.org/#working-with-promises">great Promise support</a>,
+and if that's not enough you can get an even nicer syntax using Chai and the
+<a href="https://www.npmjs.com/package/chai-as-promised">Chai as Promised</a> package.</p>
+<p>After finding out about all of that, it turned out that I just needed to use
+callbacks when writing async DOM manipulation unit tests. Here's an example test
+for my "bleepBloop" module, which outputs passed strings into the DOM
+asynchronously using RequestAnimationFrame.</p>
+<div class="highlight"><pre><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;bleep bloop&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// Mock DOM here</span>
+    <span class="p">});</span>
+
+    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should async DOM manipulate&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">bleepBloop</span><span class="p">.</span><span class="nx">asyncBleep</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">);</span>
+
+        <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.bleep-bloop&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">()).</span><span class="nx">to</span><span class="p">.</span><span class="nx">be</span><span class="p">.(</span><span class="s1">&#39;Hello&#39;</span><span class="p">);</span>
+            <span class="nx">done</span><span class="p">();</span>
+        <span class="p">},</span> <span class="mi">10</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="nx">afterEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="c1">// Clean up DOM here</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<ul>
+<li>Before and after each test the DOM is mocked an cleaned.</li>
+<li>In the <em>'bleep bloop should async DOM manipulate'</em> test, the asyncBleep
+  function will output 'Hello' to the DOM in the next animation frame.</li>
+<li>A function is available in the first argument (called 'done' in the above
+  example) as a callback.</li>
+<li>When this argument is used, Mocha knows to wait until the callback is called
+  before resolving the test.</li>
+<li>It's that argument that allows this unit test to run without errors.</li>
+</ul>
+<p>The pattern in the above example is simple, easy to write and remember, and
+should suffice in even the most complex DOM manipulation scenarios.</p>
+                </div>
+            </section>
+
+            <section class="twitter-cta contain-small">
+                <h2><a href="http://twitter.com/ralphsaunders" target="_blank">I'm on twitter</a></h2>
+            </section>
+
+        </article>
+
+
+        <script src="./theme/js/article-index.js" async></script>
+            </div>
+        </div>
+
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-57038003-1', 'auto');
+
+        </script>
+
+    </body>
+</html>

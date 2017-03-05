@@ -1,5 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>ralphsaunders.co.uk</title><link href="http://ralphsaunders.co.uk/" rel="alternate"></link><link href="http://ralphsaunders.co.uk/feeds/fed.atom.xml" rel="self"></link><id>http://ralphsaunders.co.uk/</id><updated>2017-02-08T23:02:00+00:00</updated><entry><title>Line Boy</title><link href="http://ralphsaunders.co.uk/line-boy.html" rel="alternate"></link><updated>2017-02-08T23:02:00+00:00</updated><author><name>Ralph Saunders</name></author><id>tag:ralphsaunders.co.uk,2017-02-08:line-boy.html</id><summary type="html">&lt;p&gt;&lt;a href="https://twitter.com/ralphsaunders" target="_blank"&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>ralphsaunders.co.uk</title><link href="http://ralphsaunders.co.uk/" rel="alternate"></link><link href="http://ralphsaunders.co.uk/feeds/fed.atom.xml" rel="self"></link><id>http://ralphsaunders.co.uk/</id><updated>2017-03-05T00:21:00+00:00</updated><entry><title>Testing Async JavaScript with Mocha &amp; Chai</title><link href="http://ralphsaunders.co.uk/testing-asynchronous-javascript-with-mocha-chai.html" rel="alternate"></link><updated>2017-03-05T00:21:00+00:00</updated><author><name>Ralph Saunders</name></author><id>tag:ralphsaunders.co.uk,2017-03-01:testing-asynchronous-javascript-with-mocha-chai.html</id><summary type="html">&lt;p&gt;Writing unit tests for asynchronous JavaScript can present issues. Unit testing
+frameworks that are around now can handle Promises, allowing us to write unit
+tests that asynchronously fetch data. Async DOM manipulation however is often
+not explicitly discussed – perhaps unit testing DOM manipulation is a fools
+errand? Nonetheless I spent some time figuring out how to write a unit test for
+a piece of JavaScript that used RequestAnimationFrame when doing DOM
+manipulation.&lt;/p&gt;
+&lt;p&gt;A few years ago I wrote about &lt;a href="./karma-unit-testing.html"&gt;managing unit testing workflow using
+Karma&lt;/a&gt;, using Jasmine as my go-to framework. I went
+on a bit of a journey and it turns out that &lt;a href="https://jasmine.github.io/2.5/introduction#section-Asynchronous_Support"&gt;Jasmine does have asynchronous
+support&lt;/a&gt;,
+but the examples below where achieved with &lt;a href="https://mochajs.org/"&gt;Mocha&lt;/a&gt; and
+&lt;a href="http://chaijs.com/"&gt;Chai&lt;/a&gt; (although they basically read pretty much exactly the
+same).&lt;/p&gt;
+&lt;p&gt;Mocha makes writing asynchronous unit tests &lt;a href="https://mochajs.org/#asynchronous-code"&gt;really
+easy&lt;/a&gt; by adding callback support. It
+also has &lt;a href="https://mochajs.org/#working-with-promises"&gt;great Promise support&lt;/a&gt;,
+and if that's not enough you can get an even nicer syntax using Chai and the
+&lt;a href="https://www.npmjs.com/package/chai-as-promised"&gt;Chai as Promised&lt;/a&gt; package.&lt;/p&gt;
+&lt;p&gt;After finding out about all of that, it turned out that I just needed to use
+callbacks when writing async DOM manipulation unit tests. Here's an example test
+for my "bleepBloop" module, which outputs passed strings into the DOM
+asynchronously using RequestAnimationFrame.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;describe&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;bleep bloop&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;beforeEach&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="c1"&gt;// Mock DOM here&lt;/span&gt;
+    &lt;span class="p"&gt;});&lt;/span&gt;
+
+    &lt;span class="nx"&gt;it&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;should async DOM manipulate&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;done&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;bleepBloop&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;asyncBleep&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Hello&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+        &lt;span class="nx"&gt;setTimeout&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nx"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;.bleep-bloop&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;html&lt;/span&gt;&lt;span class="p"&gt;()).&lt;/span&gt;&lt;span class="nx"&gt;to&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;be&lt;/span&gt;&lt;span class="p"&gt;.(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Hello&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+            &lt;span class="nx"&gt;done&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+        &lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;});&lt;/span&gt;
+
+    &lt;span class="nx"&gt;afterEach&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+        &lt;span class="c1"&gt;// Clean up DOM here&lt;/span&gt;
+    &lt;span class="p"&gt;});&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;Before and after each test the DOM is mocked an cleaned.&lt;/li&gt;
+&lt;li&gt;In the &lt;em&gt;'bleep bloop should async DOM manipulate'&lt;/em&gt; test, the asyncBleep
+  function will output 'Hello' to the DOM in the next animation frame.&lt;/li&gt;
+&lt;li&gt;A function is available in the first argument (called 'done' in the above
+  example) as a callback.&lt;/li&gt;
+&lt;li&gt;When this argument is used, Mocha knows to wait until the callback is called
+  before resolving the test.&lt;/li&gt;
+&lt;li&gt;It's that argument that allows this unit test to run without errors.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The pattern in the above example is simple, easy to write and remember, and
+should suffice in even the most complex DOM manipulation scenarios.&lt;/p&gt;</summary><category term="javascript"></category></entry><entry><title>Line Boy</title><link href="http://ralphsaunders.co.uk/line-boy.html" rel="alternate"></link><updated>2017-02-08T23:02:00+00:00</updated><author><name>Ralph Saunders</name></author><id>tag:ralphsaunders.co.uk,2017-02-08:line-boy.html</id><summary type="html">&lt;p&gt;&lt;a href="https://twitter.com/ralphsaunders" target="_blank"&gt;
 &lt;div class="viewport"&gt;
 &lt;article class="sphere"&gt;
 &lt;svg class="line" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"&gt; &lt;circle cx="5" cy="5" r="5"/&gt; &lt;/svg&gt;
