@@ -10,7 +10,7 @@ manipulation.&lt;/p&gt;
 Karma&lt;/a&gt;, using Jasmine as my go-to framework. I went
 on a bit of a journey and it turns out that &lt;a href="https://jasmine.github.io/2.5/introduction#section-Asynchronous_Support"&gt;Jasmine does have asynchronous
 support&lt;/a&gt;,
-but the examples below where achieved with &lt;a href="https://mochajs.org/"&gt;Mocha&lt;/a&gt; and
+but the examples below were achieved with &lt;a href="https://mochajs.org/"&gt;Mocha&lt;/a&gt; and
 &lt;a href="http://chaijs.com/"&gt;Chai&lt;/a&gt; (although they basically read pretty much exactly the
 same).&lt;/p&gt;
 &lt;p&gt;Mocha makes writing asynchronous unit tests &lt;a href="https://mochajs.org/#asynchronous-code"&gt;really
